@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Will You Be My Valentine?</title>
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Poppins', sans-serif;
+    overflow: hidden;
+}
+
+/* Floating hearts */
+.heart {
+    position: absolute;
+    font-size: 20px;
+    animation: floatUp 6s linear infinite;
+    opacity: 0.7;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(100vh) scale(0.8);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-10vh) scale(1.4);
+        opacity: 0;
+    }
+}
+
+.container {
+    text-align: center;
+    background: rgba(255,255,255,0.25);
+    backdrop-filter: blur(12px);
+    padding: 40px;
+    border-radius: 25px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+    z-index: 2;
+}
+
+h1 {
+    color: #fff;
+    font-size: 3rem;
+    margin-bottom: 25px;
+}
+
+.buttons {
+    position: relative;
+    height: 80px;
+}
+
+button {
+    padding: 15px 40px;
+    font-size: 1.3rem;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#yesBtn {
+    background: #ff165d;
+    color: white;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+#yesBtn:hover {
+    transform: scale(1.5);
+    background: #ff003c;
+}
+
+#noBtn {
+    background: white;
+    color: #ff165d;
+    position: absolute;
+}
+
+/* Celebration */
+.celebration {
+    display: none;
+    text-align: center;
+    color: white;
+    flex-direction: column;
+    z-index: 3;
+}
+
+.celebration h2 {
+    font-size: 3rem;
+}
+
+.celebration p {
+    font-size: 1.3rem;
+    max-width: 450px;
+}
+
+/* Image placeholder */
+.photo {
+    width: 200px;
+    height: 200px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.4);
+    margin: 20px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    color: #fff;
+}
+
+/* Confetti */
+.confetti {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    animation: fall 4s linear infinite;
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(-100px) rotate(0deg);
+    }
+    100% {
+        transform: translateY(100vh) rotate(360deg);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Music -->
+<audio id="music" loop>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
+</audio>
+
+<div class="container" id="main">
+    <h1>Will you be my Valentine? 💘</h1>
+    <div class="buttons">
+        <button id="yesBtn">YES 💖</button>
+        <button id="noBtn">NO 🙈</button>
+    </div>
+</div>
+
+<div class="celebration" id="celebrate">
+    <h2>YAYYYY 💕🎉</h2>
+
+    <div class="photo">
+        Your cute photo goes here 📸
+    </div>
+
+    <p>
+        I may not be perfect, but I promise unlimited smiles,  
+        bad jokes, warm hugs, and endless gratitude for YOU 💖  
+    </p>
+</div>
+
+<script>
+const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+const main = document.getElementById("main");
+const celebrate = document.getElementById("celebrate");
+const music = document.getElementById("music");
+
+/* NO button runs */
+noBtn.addEventListener("mouseover", () => {
+    const x = Math.random() * (window.innerWidth - 100);
+    const y = Math.random() * (window.innerHeight - 100);
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+});
+
+/* YES clicked */
+yesBtn.addEventListener("click", () => {
+    main.style.display = "none";
+    celebrate.style.display = "flex";
+    music.play();
+    confetti();
+});
+
+/* Confetti */
+function confetti() {
+    for (let i = 0; i < 150; i++) {
+        const c = document.createElement("div");
+        c.className = "confetti";
+        c.style.left = Math.random() * window.innerWidth + "px";
+        c.style.backgroundColor = randomColor();
+        c.style.animationDuration = (Math.random() * 3 + 2) + "s";
+        document.body.appendChild(c);
+
+        setTimeout(() => c.remove(), 5000);
+    }
+}
+
+function randomColor() {
+    const colors = ["#ff165d", "#ffd166", "#06d6a0", "#4cc9f0", "#f72585"];
+    return colors[Math.floor(Math.random() * colors.length)];
+}
+
+/* Floating hearts */
+setInterval(() => {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "💖";
+    heart.style.left = Math.random() * window.innerWidth + "px";
+    heart.style.fontSize = Math.random() * 20 + 15 + "px";
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 6000);
+}, 400);
+</script>
+
+</body>
+</html>
