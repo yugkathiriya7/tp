@@ -11,13 +11,17 @@
 body {
     margin: 0;
     height: 100vh;
-    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+    background-image: url("https://images.unsplash.com/photo-1528825871115-3581a5387919");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     display: flex;
     justify-content: center;
     align-items: center;
     font-family: 'Poppins', sans-serif;
     overflow: hidden;
 }
+
 
 /* Floating hearts */
 .heart {
@@ -68,10 +72,14 @@ button {
     transition: all 0.3s ease;
 }
 
-#yesBtn {
+##yesBtn {
     background: #ff165d;
     color: white;
-    animation: pulse 1.5s infinite;
+    transition: transform 0.2s ease;
+}
+
+#yesBtn:active {
+    transform: scale(1.6);
 }
 
 @keyframes pulse {
@@ -227,4 +235,5 @@ setInterval(() => {
 
 </body>
 </html>
+
 
